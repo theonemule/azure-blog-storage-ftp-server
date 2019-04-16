@@ -23,7 +23,7 @@ wget https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.
 dpkg -i packages-microsoft-prod.deb
 apt-get update
 apt-get install -y blobfuse
-sudo mkdir /mnt/resource/blobfusetmp -p
+sudo mkdir /mnt/blobfusetmp -p
 mkdir /ftp/
 
 
@@ -32,14 +32,14 @@ accountKey $KEY
 containerName $CONTAINER" > /ftp/ftp.cfg
 
 echo "#!/bin/sh -e
-mkdir /mnt/blobfusetmp" > /etc/rc.local
+mkdir /mnt/blobfusetmp
+blobfuse /ftp/ftp-files --tmp-path=/mnt/blobfusetmp -o attr_timeout=240 -o entry_timeout=240 -o negative_timeout=120 --config-file=/ftp/ftp.cfg -o allow_other --log-level=LOG_DEBUG --file-cache-timeout-in-seconds=120" > /etc/rc.local
 chmod +x /etc/rc.local
 
 mkdir /ftp/ftp-files
 mkdir /mnt/blobfusetmp
 chmod 777 /mnt/blobfusetmp
 blobfuse /ftp/ftp-files --tmp-path=/mnt/blobfusetmp -o attr_timeout=240 -o entry_timeout=240 -o negative_timeout=120 --config-file=/ftp/ftp.cfg -o allow_other --log-level=LOG_DEBUG --file-cache-timeout-in-seconds=120
-echo "blobfuse /ftp/ftp-files --tmp-path=/mnt/blobfusetmp -o attr_timeout=240 -o entry_timeout=240 -o negative_timeout=120 --config-file=/ftp/ftp.cfg -o allow_other --log-level=LOG_DEBUG --file-cache-timeout-in-seconds=120" >> /etc/fstab
 
 echo "Match Group sftp_users
 ChrootDirectory /ftp/ftp-user/%u
@@ -48,4 +48,3 @@ AllowGroups sftp_users
 X11Forwarding no
 AllowTcpForwarding no
 " >>/etc/ssh/sshd_config
-
