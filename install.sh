@@ -23,8 +23,9 @@ wget https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.
 dpkg -i packages-microsoft-prod.deb
 apt-get update
 apt-get install -y blobfuse
-sudo mkdir /mnt/blobfusetmp -p
 mkdir /ftp/
+mkdir /ftp/ftp-files
+
 systemctl stop pure-ftpd
 rm /etc/init.d/pure-ftpd
 
@@ -43,16 +44,17 @@ accountKey $KEY
 containerName $CONTAINER" > /ftp/ftp.cfg
 
 echo "#!/bin/sh -e
-mkdir /mnt/blobfusetmp
+if [ ! -d  /mnt/blobfusetmp ]; then
+  mkdir /mnt/blobfusetmp
+fi
 blobfuse /ftp/ftp-files --tmp-path=/mnt/blobfusetmp -o uid=$FTPUID -o gid=$FTPGID -o attr_timeout=240 -o entry_timeout=240 -o negative_timeout=120 --config-file=/ftp/ftp.cfg -o allow_other --log-level=LOG_DEBUG --file-cache-timeout-in-seconds=120
 /usr/sbin/pure-ftpd /etc/pure-ftpd/pure-ftpd.conf" > /etc/rc.local
 chmod +x /etc/rc.local
 
-mkdir /ftp/ftp-files
-mkdir /mnt/blobfusetmp
-chmod 777 /mnt/blobfusetmp
 
 echo "TLS     2
 TLSCipherSuite	HIGH
 CertFile	/ftp/ftp.pem
 PureDB	/ftp/ftp.pdb" >> /etc/pure-ftpd/pure-ftpd.conf
+
+sh /etc/rc.local
