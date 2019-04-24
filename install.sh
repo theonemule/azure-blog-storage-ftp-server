@@ -75,7 +75,7 @@ rm /var/www/html/*
 chown -R ftpuser:ftpusers /var/www/html/
 find /var/www/html/ -type d -exec chmod 2750 {} \+
 find /var/www/html/ -type f -exec chmod 640 {} \+
-wget -O /var/www/html/index.sh https://raw.githubusercontent.com/theonemule/azure-blog-storage-ftp-server/master/install.sh
+wget -O /var/www/html/index.sh https://raw.githubusercontent.com/theonemule/azure-blog-storage-ftp-server/master/index.sh
 
 touch /ftp/ftp.passwd
 
