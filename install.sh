@@ -71,7 +71,7 @@ chown -R ftpuser:ftpusers /ftp/
 find /ftp -type d -exec chmod 2750 {} \+
 find /ftp -type f -exec chmod 640 {} \+
 
-rm /var/www/html/*
+mkdir /var/www/html/
 chown -R ftpuser:ftpusers /var/www/html/
 find /var/www/html/ -type d -exec chmod 2750 {} \+
 find /var/www/html/ -type f -exec chmod 640 {} \+
