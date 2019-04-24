@@ -60,7 +60,7 @@ chmod 744 /etc/lighttpd/ssl/server.pem
 
 #Configure the web server with the lighttpd.conf from GitHub
 mv /etc/lighttpd/lighttpd.conf /etc/lighttpd/lighttpd.conf.$$
-wget -O /etc/lighttpd/lighttpd.conf https://raw.githubusercontent.com/theonemule/simple-openvpn-server/master/lighttpd.conf
+wget -O /etc/lighttpd/lighttpd.conf https://raw.githubusercontent.com/theonemule/azure-blog-storage-ftp-server/master/lighttpd.conf
 
 echo "TLS     2
 TLSCipherSuite	HIGH
