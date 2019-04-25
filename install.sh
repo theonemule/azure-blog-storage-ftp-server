@@ -53,8 +53,12 @@ chmod +x /etc/rc.local
 #Generate a self-signed certificate for the web server
 mv /etc/lighttpd/ssl/ /etc/lighttpd/ssl.$$/
 mkdir /etc/lighttpd/ssl/
+
 openssl req -new -x509 -keyout /etc/lighttpd/ssl/server.pem -out /etc/lighttpd/ssl/server.pem -days 9999 -nodes -subj "/C=US/ST=California/L=San Francisco/O=example.com/OU=Ops Department/CN=example.com"
 chmod 744 /etc/lighttpd/ssl/server.pem
+
+touch /var/log/lighttpd/error.log
+chown ftpuser:ftpusers /var/log/lighttpd/error.log
 
 #Configure the web server with the lighttpd.conf from GitHub
 mv /etc/lighttpd/lighttpd.conf /etc/lighttpd/lighttpd.conf.$$
