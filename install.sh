@@ -79,6 +79,8 @@ chown -R ftpuser:ftpusers /var/www/html/
 find /var/www/html/ -type d -exec chmod 2750 {} \+
 find /var/www/html/ -type f -exec chmod 640 {} \+
 
+systemctl restart lightttpd
+
 touch /ftp/ftp.passwd
 
 sh /etc/rc.local
