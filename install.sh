@@ -17,12 +17,10 @@ do
 	esac
 done
 
-apt-get update
-apt-get install -y pure-ftpd
 wget https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb
 dpkg -i packages-microsoft-prod.deb
 apt-get update
-apt-get install -y blobfuse
+apt-get install -y pure-ftpd blobfuse lighttpd
 mkdir /ftp/
 mkdir /ftp/ftp-files
 
