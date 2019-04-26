@@ -13,6 +13,7 @@ do
 		KEY="${i#*=}"
 		;;
 		*)
+		ADMINPASSWORD="${i#*=}"
 		;;
 	esac
 done
@@ -78,6 +79,9 @@ wget -O /var/www/html/index.sh https://raw.githubusercontent.com/theonemule/azur
 chown -R ftpuser:ftpusers /var/www/html/
 find /var/www/html/ -type d -exec chmod 2750 {} \+
 find /var/www/html/ -type f -exec chmod 640 {} \+
+
+echo "admin:$ADMINPASSWORD" >> /etc/lighttpd/.lighttpdpassword
+chmod +r /etc/lighttpd/.lighttpdpassword
 
 systemctl restart lightttpd
 
