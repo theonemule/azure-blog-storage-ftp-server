@@ -83,8 +83,10 @@ find /var/www/html/ -type f -exec chmod 640 {} \+
 echo "admin:$ADMINPASSWORD" >> /etc/lighttpd/.lighttpdpassword
 chmod +r /etc/lighttpd/.lighttpdpassword
 
-systemctl restart lightttpd
-
 touch /ftp/ftp.passwd
 
 sh /etc/rc.local
+
+systemctl restart lightttpd
+
+exit 0
