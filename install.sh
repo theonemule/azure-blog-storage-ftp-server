@@ -12,8 +12,10 @@ do
 		--key=*)
 		KEY="${i#*=}"
 		;;
-		*)
+		--adminpassword=*)
 		ADMINPASSWORD="${i#*=}"
+		;;		
+		*)
 		;;
 	esac
 done
