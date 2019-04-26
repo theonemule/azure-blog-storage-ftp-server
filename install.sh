@@ -89,6 +89,6 @@ touch /ftp/ftp.passwd
 
 sh /etc/rc.local
 
-systemctl restart lightttpd
+systemctl restart lighttpd
 
 exit 0
