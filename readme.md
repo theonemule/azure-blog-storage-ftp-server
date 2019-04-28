@@ -49,7 +49,7 @@ To install the server...
 1. Execute the script. Supply the appropriate values for the script parameters. 
 
 	````
-	bash install.sh --account=YourAccountName --container=YourBlobStorageContainerName --key=YourBlobStorageAccountKEy --adminpasswird=APasswordForTheAdminSite
+	bash install.sh --account=YourAccountName --container=YourBlobStorageContainerName --key=YourBlobStorageAccountKEy --adminpassword=APasswordForTheAdminSite
 
 	````
 
