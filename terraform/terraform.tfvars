@@ -1,0 +1,6 @@
+StorageAccountName = "myftpblobstorage"
+FtpFileContainerName = "myftp"
+vmSize = "Standard_B2s"
+username = "superadmin"
+dnsLabelPrefix = "myfanzyftp"
+location = "francecentral"
