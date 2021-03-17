@@ -6,7 +6,7 @@ resource "azurerm_resource_group" "main" {
 resource "random_string" "random" {
   length  = 4
   special = false
-  upper = false
+  upper   = false
 }
 
 resource "azurerm_storage_account" "main" {
@@ -63,8 +63,8 @@ resource "tls_private_key" "ftp_ssh" {
   rsa_bits  = 4096
 }
 
-output "tls_private_key" { 
-  value = tls_private_key.ftp_ssh.private_key_pem 
+output "tls_private_key" {
+  value       = tls_private_key.ftp_ssh.private_key_pem
   description = "Admin private SSH key."
   sensitive   = true
 }
@@ -74,20 +74,20 @@ resource "random_password" "ftp_pwd" {
   special = false
 }
 
-output "ftp_pwd" { 
-  value = random_password.ftp_pwd.result
+output "ftp_pwd" {
+  value       = random_password.ftp_pwd.result
   description = "Admin password."
   sensitive   = true
 }
 
 resource "azurerm_linux_virtual_machine" "main" {
-  name                = join("", [var.scenarioPrefix, "VM"])
-  resource_group_name = azurerm_resource_group.main.name
-  location            = azurerm_resource_group.main.location
-  size                = var.vmSize
-  admin_username      = var.username
-  admin_password      = random_password.ftp_pwd.result
-  computer_name = join("", [var.scenarioPrefix, "VM"])
+  name                       = join("", [var.scenarioPrefix, "VM"])
+  resource_group_name        = azurerm_resource_group.main.name
+  location                   = azurerm_resource_group.main.location
+  size                       = var.vmSize
+  admin_username             = var.username
+  admin_password             = random_password.ftp_pwd.result
+  computer_name              = join("", [var.scenarioPrefix, "VM"])
   allow_extension_operations = true
 
   network_interface_ids = [
@@ -113,16 +113,15 @@ resource "azurerm_linux_virtual_machine" "main" {
 }
 
 locals {
-  command = join("",["bash ./install.sh --account=", azurerm_storage_account.main.name, " --key=", azurerm_storage_account.main.primary_access_key , " --container=" , var.FtpFileContainerName, " --adminpassword=" , random_password.ftp_pwd.result])
-  fileuri = "https://raw.githubusercontent.com/theonemule/azure-blog-storage-ftp-server/master/install.sh"
+  command = join("", ["bash ./install.sh --account=", azurerm_storage_account.main.name, " --key=", azurerm_storage_account.main.primary_access_key, " --container=", var.FtpFileContainerName, " --adminpassword=", random_password.ftp_pwd.result])
 }
 
 resource "azurerm_virtual_machine_extension" "main" {
-  name                 = join("", [var.scenarioPrefix, "VMextensions"])
-  virtual_machine_id   = azurerm_linux_virtual_machine.main.id
-  publisher            = "Microsoft.Azure.Extensions"
-  type                 = "CustomScript"
-  type_handler_version = "2.0"
+  name                       = join("", [var.scenarioPrefix, "VMextensions"])
+  virtual_machine_id         = azurerm_linux_virtual_machine.main.id
+  publisher                  = "Microsoft.Azure.Extensions"
+  type                       = "CustomScript"
+  type_handler_version       = "2.0"
   auto_upgrade_minor_version = true
 
   settings = <<SETTINGS
