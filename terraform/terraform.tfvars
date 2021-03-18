@@ -1,0 +1,6 @@
+StorageAccountName = "TBD"
+FtpFileContainerName = "TBD"
+vmSize = "Standard_B2s"
+username = "admin"
+dnsLabelPrefix = "TBD"
+location = "TBD"
